@@ -510,6 +510,9 @@ a {
         font-size: 2.5rem;
     }
 
+    .section-desc{
+        font-size: 12px;
+    }
     .nav-toggle {
         display: flex;
     }
@@ -629,6 +632,7 @@ a {
         line-height: 1.4;
     }
 }
+
 
 
 
