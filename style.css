@@ -573,7 +573,7 @@ a {
     }
 
     .intro-meta{
-        font-size: 9px;
+        font-size: 10px;
     }
     .projects-grid {
         grid-template-columns: 1fr;
@@ -636,4 +636,44 @@ a {
     .about_me h2 {
         font-size: 2.5rem;
     }
+
+    .project-card p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        font-weight: 400;
+    }
+    
+    .project-card h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    
+    /* Experience description fonts */
+    .timeline-body p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        font-weight: 400;
+    }
+    
+    .timeline-body h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+    
+    .timeline-date {
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+    
+    /* Skills description fonts */
+    .skill-card h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+    
+    .skill-description {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
 }
+
