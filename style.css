@@ -573,7 +573,7 @@ a {
     }
 
     .intro-meta{
-        font-size: 10px;
+        font-size: 11px;
     }
     .projects-grid {
         grid-template-columns: 1fr;
@@ -599,13 +599,6 @@ a {
         flex-direction: column;
     }
 
-    .timeline-dot {
-        margin-right: 0;
-        margin-bottom: 10px;
-        align-self: center;
-    }
-
-
     .contact-logos {
         gap: 25px;
     }
@@ -618,62 +611,24 @@ a {
     .fixed-sidebar {
         right: 20px;
     }
-}
 
- @media (max-width: 480px) {
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .toggle-switch {
-        width: 280px;
-    }
-
-    .about_me h2 {
-        font-size: 2.5rem;
-    }
-
-    .project-card p {
-        font-size: 0.9rem;
+   .project-card p {
+        font-size: 12px;
         line-height: 1.5;
-        font-weight: 400;
     }
     
-    .project-card h3 {
-        font-size: 1.2rem;
-        font-weight: 600;
-    }
-    
-    /* Experience description fonts */
+    /* Experience description - same size as about_me h5 */
     .timeline-body p {
-        font-size: 0.9rem;
+        font-size: 12px;
         line-height: 1.5;
-        font-weight: 400;
     }
     
-    .timeline-body h3 {
-        font-size: 1.1rem;
-        font-weight: 600;
-    }
-    
-    .timeline-date {
-        font-size: 0.85rem;
-        font-weight: 500;
-    }
-    
-    /* Skills description fonts */
-    .skill-card h4 {
-        font-size: 0.9rem;
-        font-weight: 600;
-    }
-    
+    /* Skills description - same size as about_me h5 */
     .skill-description {
-        font-size: 0.8rem;
+        font-size: 12px;
         line-height: 1.4;
     }
 }
+
+
 
