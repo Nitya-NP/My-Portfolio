@@ -8,323 +8,235 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="icon.png">
 
-    <!--Source from fontawesome.com-->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 </head>
 
 <body>
-    <!-- Cool Backgrounds.io Style Particles -->
-    <div id="particles-js"></div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">Nitya Patel</div>
-            <div class="nav-toggle" id="navToggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <div class="nav-menu" id="navMenu">
-                <a href="#Intro" class="nav-link">Introduction</a>
-                <a href="#Experiences" class="nav-link">Experiences</a>
-                <a href="#Skills" class="nav-link">Skills</a>
-                <a href="#Projects" class="nav-link">Projects</a>
-                <a href="#Contact" class="nav-link">Contact</a>
-                <a href="resume.pdf" target="_blank" class="nav-link resume-btn">Resume</a>
+<!-- Particles Background -->
+<div id="particles-js"></div>
+
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">Nitya Patel</div>
+        <div class="nav-toggle" id="navToggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <a href="#Intro" class="nav-link">Introduction</a>
+            <a href="#Experiences" class="nav-link">Experiences</a>
+            <a href="#Skills" class="nav-link">Skills</a>
+            <a href="#Projects" class="nav-link">Projects</a>
+            <a href="#Contact" class="nav-link">Contact</a>
+            <a href="resume.pdf" target="_blank" class="nav-link resume-btn">Resume</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="fixed-sidebar">
+    <a href="https://github.com/Nitya-NP" target="_blank"><i class="fa-brands fa-github-alt"></i></a>
+    <a href="https://www.linkedin.com/in/nitya-patel-838072301/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+</div>
+
+<!-- INTRO -->
+<section id="Intro">
+    <div class="about_me">
+        <h5 id="hi">Hi! I am</h5>
+        <h2>Nitya Patel</h2>
+
+        <h5>
+            McMaster University Software Engineering student with hands-on experience in software development,
+            automation, and AI integration, specializing in backend systems, API-driven applications, and building
+            real-world software solutions.
+
+            <br><br>
+
+            My experience spans <span style="color: var(--pink);">Java</span>, <span style="color: var(--pink);">Python</span>,
+            <span style="color: var(--pink);">C#</span>, <span style="color: var(--pink);">C</span>,
+            <span style="color: var(--pink);">Git/GitHub</span>, <span style="color: var(--pink);">Linux</span>,
+            as well as <span style="color: var(--pink);">HTML, CSS, JavaScript, React</span>.
+        </h5>
+
+        <div class="intro-meta">
+            <div>
+                I'm currently seeking <strong>co-op or internship</strong> opportunities in software development where
+                I can apply my skills and contribute to impactful projects.
             </div>
         </div>
-    </nav>
+    </div>
+</section>
 
-    <!-- Sidebar -->
-    <div class="fixed-sidebar">
-        <a href="https://github.com/Nitya-NP" target="_blank" aria-label="GitHub Profile">
-            <i class="fa-brands fa-github-alt"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/nitya-patel-838072301/" target="_blank" aria-label="LinkedIn Profile">
-            <i class="fab fa-linkedin-in"></i>
-        </a>
+<!-- PROJECTS -->
+<section id="Projects" class="section">
+    <h1 class="section-title">PROJECTS</h1>
+
+    <div class="projects-grid">
+
+        <article class="project-card">
+            <div class="project-thumb">🤖</div>
+            <h3>PRPilot - Code Review Automation System</h3>
+            <p>FastAPI webhook system processing GitHub PRs with LLM-based review generation, CI/CD integration, and secure deployment on Render.</p>
+            <a href="https://github.com/Nitya-NP" target="_blank">View Code</a>
+        </article>
+
+        <article class="project-card">
+            <div class="project-thumb">🧠</div>
+            <h3>Catan Strategy Game</h3>
+            <p>Java + Python strategy game using OOP, rule-based AI, and structured JSON game-state processing.</p>
+            <a href="https://github.com/Nitya-NP/Catan-Strategy-Game" target="_blank">View Code</a>
+        </article>
+
+        <article class="project-card">
+            <div class="project-thumb">🎸</div>
+            <h3>ChordHero</h3>
+            <p>Accessibility-focused Python app built for visually impaired users with usability testing and iterative design improvements.</p>
+            <a href="https://github.com/Nitya-NP/ChordHero" target="_blank">View Code</a>
+        </article>
+
+        <article class="project-card">
+            <div class="project-thumb">❌⭕</div>
+            <h3>Tic-Tac-Toe</h3>
+            <p>Java OOP game with multiple AI difficulty levels including strategic decision-making bot.</p>
+        </article>
+
+        <article class="project-card">
+            <div class="project-thumb">🧩</div>
+            <h3>Mastermind</h3>
+            <p>Console-based Java code-breaking game using logical deduction mechanics.</p>
+        </article>
+
+        <article class="project-card">
+            <div class="project-thumb">⚓</div>
+            <h3>Battleship</h3>
+            <p>Java Battleship game with ship placement, hit tracking, and AI opponent logic.</p>
+        </article>
+
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="Experiences" class="section">
+    <h1 class="section-title">EXPERIENCE</h1>
+
+    <div class="timeline-grid">
+
+        <div class="timeline-item">
+            <div class="timeline-body">
+                <h3>AI/ML Web Application Developer · VJDS International Inc.</h3>
+                <span class="timeline-date">May 2026 – Present</span>
+                <p>Developing AI-powered web applications using Python, LLM APIs, and full-stack integration in a remote team environment.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-body">
+                <h3>Operations Coordinator · Google Developer Groups (GDG)</h3>
+                <span class="timeline-date">Sept 2025 – Present</span>
+                <p>Coordinating hackathons and technical workshops, managing logistics, participants, and event execution.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-body">
+                <h3>Operations Lead Intern · AYD Internet Marketing</h3>
+                <span class="timeline-date">Apr 2026 – May 2026</span>
+                <p>Led operational planning, risk analysis, and cross-team coordination for project execution.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-body">
+                <h3>Strategy Lead · Rue Productions</h3>
+                <span class="timeline-date">Mar 2026 – Apr 2026</span>
+                <p>Analyzed user needs and market trends to support structured strategic decision-making.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- SKILLS (KEEP TOGGLE EXACT SAME) -->
+<section id="Skills" class="section">
+    <h1 class="section-title">MY SKILLS</h1>
+
+    <div class="toggle-container">
+        <div class="toggle-switch techskills-active">
+            <div class="toggle-slider"></div>
+            <div class="toggle-option" data-target="tech-skills">Technical Skills</div>
+            <div class="toggle-option" data-target="soft-skills">Soft Skills</div>
+        </div>
     </div>
 
-    <!-- Intro Section -->
-    <section id="Intro">
-        <div class="about_me">
-            <h5 id="hi">Hi! I am </h5>
-            <h2>Nitya Patel</h2>
-            <h5>
-                A 2nd year <span style="color: var(--accent);">Software Engineering student</span> at McMaster University, passionate about building software that is not just functional, 
-                but also well-designed and user-focused. My curiosity about how technology works has grown into a drive to create quality solutions. 
-                My experience spans with <span style="color: var(--pink);">Java</span>, <span style="color: var(--pink);">Python</span>, 
-                <span style="color: var(--pink);">C#</span>, <span style="color: var(--pink);">C</span>, <span
-                style="color: var(--pink);">Git/GitHub</span>, <span style="color: var(--pink);">Linux</span> as
-                well as web technologies such as, <span style="color: var(--pink);">HTML, CSS</span>, and familiarity
-                with <span style="color: var(--pink);">JavaScript</span>.
-                I truly enjoy being challenged and get the most satisfaction from projects—whether for class, personal interest, or a team—that push my problem-solving
-                and analytical skills.
-                
-            </h5>
-            <div class="intro-meta">
-                <div>I'm currently seeking <strong>co-op or internship</strong> opportunities in software development, where I
-                    can apply my skills, contribute to impactful projects, and continue learning from real-world
-                    experiences.</div>
+    <!-- TECH SKILLS -->
+    <div id="tech-skills" class="skills-section active">
+        <div class="skills-grid">
+
+            <div class="skill-card">
+                <div class="skill-icon">💻</div>
+                <h4>Programming</h4>
+                <div class="skill-description">Python, Java, JavaScript, C, C#, HTML, CSS</div>
             </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">⚙️</div>
+                <h4>Tools & Frameworks</h4>
+                <div class="skill-description">React, FastAPI, Git, GitHub, REST APIs, Linux, Bash</div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">🧠</div>
+                <h4>Software Engineering</h4>
+                <div class="skill-description">DSA, OOP, SDLC, Agile, CI/CD, Testing, Debugging</div>
+            </div>
+
         </div>
-    </section>
+    </div>
 
-    <!-- Projects Section -->
-    <section id="Projects" class="section">
-        <h1 class="section-title">PROJECTS</h1>
-        <p class="section-desc">A collection of projects and coursework showcasing my skills in Java, Python, and C#,
-            highlighting problem-solving, game development, and software design.</p>
+    <!-- SOFT SKILLS -->
+    <div id="soft-skills" class="skills-section">
+        <div class="skills-grid">
 
-        <div class="projects-grid">
-            <article class="project-card">
-                <div class="project-thumb">🗺️</div>
-                <h3>Catan Strategy Game</h3>
-                <p>AI-based Catan strategy game built in Java with object-oriented design, featuring turn-based gameplay, rule-based AI opponents, and modular architecture for scalable game logic.</p>
-                <a href="https://github.com/Nitya-NP/Catan-Strategy-Game" target="_blank">View Code</a>
-            </article>
-            
-            <article class="project-card">
-                <div class="project-thumb">🎸</div>
-                <h3>ChordHero</h3>
-                <p>A guitar learning app prototype (Python) built to help user with Usher syndrome. (Group Project) </p>
-                <a href="https://github.com/Nitya-NP/ChordHero" target="_blank">View Code</a>
-            </article>
+            <div class="skill-card">
+                <div class="skill-icon">🤝</div>
+                <h4>Teamwork</h4>
+                <div class="skill-description">Collaboration in team environments and group projects</div>
+            </div>
 
-             <article class="project-card">
-                <div class="project-thumb">❌⭕</div>
-                <h3>Tic-Tac-Toe</h3>
-                <p>Java-based, console Tic-Tac-Toe game implementing all core OOP principles, featuring five game modes (human, random AI, and smart AI) and strategic computer player. </p>
-                <a href="https://github.com/Nitya-NP/Tic-Tac-Toe" target="_blank">View Code</a>
-            </article>
-            
-            <article class="project-card">
-                <div class="project-thumb">🧠</div>
-                <h3>Mastermind</h3>
-                <p>A console-based (Java) game, computer generates a secret code player must guess it to WIN. </p>
-                <a href="https://github.com/Nitya-NP/Mastermind-Game" target="_blank">View Code</a>
-            </article>
-            <article class="project-card">
-                <div class="project-thumb">🧩</div>
-                <h3>Tetris</h3>
-                <p>A classic game built in C# with WPF, where the goal is to achieve the highest score possible!</p>
-                <a href="https://github.com/Nitya-NP/Tetris-Game" target="_blank">View Code</a>
-            </article>
-            
-            <article class="project-card">
-                <div class="project-thumb">⚓</div>
-                <h3>Battleship</h3>
-                <p>A Java console Battleship game with ship placement, hit tracking, and player vs. computer mode — sink
-                    all ships to win!</p>
-                <a href="https://github.com/Nitya-NP/Battleship" target="_blank">View Code</a>
-            </article>
+            <div class="skill-card">
+                <div class="skill-icon">🔍</div>
+                <h4>Problem Solving</h4>
+                <div class="skill-description">Analytical thinking and structured approach to challenges</div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">💬</div>
+                <h4>Communication</h4>
+                <div class="skill-description">Clear and effective technical communication</div>
+            </div>
+
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Experiences Section -->
-    <section id="Experiences" class="section">
-        <h1 class="section-title">EXPERIENCE</h1>
-        <p class="section-desc">My journey through part-time roles and club activities showcases the successful
-            application of essential skills, including technical proficiency, teamwork, communication, and
-            decision-making.</p>
-        <div class="timeline-grid">
-            <div class="timeline-item">
+<!-- CONTACT -->
+<section id="Contact" class="section">
+    <h2 class="section-title">CONTACT ME</h2>
 
-                <div class="timeline-body">
-                    <h3>Operations Coordinator · Google Developer Groups (GDG)</h3>
-                    <span class="timeline-date">Sep 2025- Present</span>
-                    <p>Actively coordinate all aspects of technical events and hackathons, managing logistics,
-                        participant applications, and event execution (workshops, ceremonies, and mini-events). Ensure a
-                        seamless and engaging experience for all hackers.</p>
-                </div>
-            </div>
+    <div class="contact-logos">
+        <a href="mailto:paten131@mcmaster.ca"><i class="fas fa-envelope"></i></a>
+        <a href="https://github.com/Nitya-NP"><i class="fa-brands fa-github-alt"></i></a>
+        <a href="https://www.linkedin.com/in/nitya-patel-838072301/"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+</section>
 
-            <div class="timeline-item">
-
-                <div class="timeline-body">
-                    <h3>Operations Lead · AYD Internet Marketing (Riipen Labs)</h3>
-                    <span class="timeline-date">Apr 2026 – May 2026</span>
-                    <p>Led operational planning for a team-based project, evaluating feasibility, risk, and scalability while coordinating cross-team execution and ensuring timely delivery.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-
-                <div class="timeline-body">
-                    <h3>Strategy Lead · Rue Productions (Riipen Labs)</h3>
-                    <span class="timeline-date">Mar 2026 – Apr 2026</span>
-                    <p>Translated business requirements into structured strategic insights, analyzed user needs and market trends, and evaluated feasibility and risks to support data-driven decision making.</p>
-                </div>
-            </div>
-            
-            <div class="timeline-item">
-
-                <div class="timeline-body">
-                    <h3>Cashier · A&W</h3>
-                    <span class="timeline-date">Aug 2022 — Dec 2023</span>
-                    <p>Managed high-volume transactions, inventory tasks, and provided effective customer service in a
-                        fast-paced environment. (Demonstrates responsibility and efficiency)</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-
-                <div class="timeline-body">
-                    <h3>STEM Club Member</h3>
-                    <span class="timeline-date">Sep 2022 — Jun 2024</span>
-                    <p>Took the initiative to plan and execute STEM events and outreach programs, fostering student
-                        interest in technology and engineering concepts. (High School Activity)</p>
-                </div>
-            </div>
-           
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="Skills" class="section">
-        <h1 class="section-title">MY SKILLS</h1>
-
-        <!-- Toggle Switch -->
-        <div class="toggle-container">
-            <div class="toggle-switch techskills-active">
-                <div class="toggle-slider"></div>
-                <div class="toggle-option" data-target="tech-skills">Technical Skills</div>
-                <div class="toggle-option" data-target="soft-skills">Soft Skills</div>
-            </div>
-        </div>
-
-        <!-- Technical Skills Section -->
-        <div id="tech-skills" class="skills-section active">
-            <p class="section-desc">These are the technical skills I've developed through coursework, team projects and
-                personal projects.</p>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">☕</div>
-                    <h4>Java</h4>
-                    <div class="skill-description">
-                        Object-oriented programming, data structures, algorithms.
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">🐍</div>
-                    <h4>Python</h4>
-                    <div class="skill-description">
-                        Pygame, Scripting, data analysis, automation.
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">🔧</div>
-                    <h4>Git/GitHub • Linux/WSL • C</h4>
-                    <div class="skill-description">
-                        Version control, and software development tools.
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">#</div>
-                    <h4>C# • Visual Basic</h4>
-                    <div class="skill-description">
-                        WPF, Monogame, game development with Unity, and Windows application development.
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">⚡</div>
-                    <h4>HTML • CSS • JavaScript • React</h4>
-                    <div class="skill-description">
-                        Frontend web development, and interactive user interfaces.
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">📐</div>
-                    <h4>CAD (Inventor)</h4>
-                    <div class="skill-description">
-                        3D modeling, mechanical design, and technical drawings using Autodesk Inventor.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Soft Skills Section -->
-        <div id="soft-skills" class="skills-section">
-            <p class="section-desc">These are the soft skills I've developed through team projects, club and work
-                experiences and collaborations.</p>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">🤝</div>
-                    <h4>Teamwork & Collaboration</h4>
-                    <div class="skill-description">
-                        Effectively working in teams, sharing responsibilities, and achieving common goals.
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">🔍</div>
-                    <h4>Problem-Solving</h4>
-                    <div class="skill-description">
-                        Analytical thinking, creative solutions, and systematic approach to challenges.
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">📊</div>
-                    <h4>Critical Thinking</h4>
-                    <div class="skill-description">
-                        Objective analysis, evaluation of information, and logical decision-making.
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">💬</div>
-                    <h4>Communication</h4>
-                    <div class="skill-description">
-                        Clear communication of ideas, active listening, and effective presentation skills.
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">⏰</div>
-                    <h4>Time Management</h4>
-                    <div class="skill-description">
-                        Prioritizing tasks, meeting deadlines, and efficient work organization.
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">👥</div>
-                    <h4>Leadership</h4>
-                    <div class="skill-description">
-                        Guiding teams, making decisions, and motivating others toward the goal.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="Contact" class="section">
-        <h2 class="section-title">CONTACT ME!</h2>
-        <p class="section-desc">Let's connect! Feel free to reach out for opportunities or collaborations.</p>
-
-        <div class="contact-info">
-            <div class="contact-logos">
-                <a href="mailto:nitved08@gmail.com?subject=Let's%20Connect" class="contact-icon"
-                    aria-label="Email Me">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://github.com/Nitya-NP" target="_blank" class="contact-icon" aria-label="GitHub Profile">
-                    <i class="fa-brands fa-github-alt"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/nitya-patel-838072301/" target="_blank" class="contact-icon"
-                    aria-label="LinkedIn Profile">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="code.js"></script>
-
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script src="code.js"></script>
 
 </body>
-
 </html>
-
