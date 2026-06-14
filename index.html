@@ -7,17 +7,63 @@
     <title>Nitya Patel - Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="icon.png">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
 
-<!-- Particles Background -->
 <div id="particles-js"></div>
 
-<!-- Navigation -->
+<!-- Roaming mini character (appears after Intro, wanders + reacts) -->
+<div id="mini-char" aria-hidden="true">
+    <svg id="mini-svg" viewBox="0 0 96 140" xmlns="http://www.w3.org/2000/svg" width="96" height="140">
+        <!-- body -->
+        <rect x="8" y="92" width="36" height="38" rx="8" fill="#7ec8e3"/>
+        <ellipse cx="26" cy="68" rx="20" ry="22" fill="#5ab5d4" opacity="0"/>
+        <!-- laptop -->
+        <rect x="4" y="108" width="44" height="8" rx="2" fill="#2d2d3a"/>
+        <rect x="8" y="96" width="36" height="15" rx="2" fill="#1e1e2e"/>
+        <rect x="10" y="98" width="32" height="11" rx="1" fill="#0f0f1f"/>
+        <rect x="12" y="100" width="14" height="2" rx="0.5" fill="#5cc3ff" opacity="0.9"/>
+        <rect x="12" y="104" width="22" height="2" rx="0.5" fill="#ff72da" opacity="0.8"/>
+        <!-- head -->
+        <ellipse cx="26" cy="60" rx="20" ry="22" fill="#f5c5a3"/>
+        <!-- hair -->
+        <ellipse cx="26" cy="42" rx="20" ry="13" fill="#1a1a1a"/>
+        <!-- bun -->
+        <circle cx="26" cy="34" r="9" fill="#1a1a1a"/>
+        <ellipse cx="26" cy="40" rx="8" ry="3" fill="#ff72da"/>
+        <!-- glasses -->
+        <rect x="11" y="55" width="12" height="9" rx="3" fill="none" stroke="#2d2d3a" stroke-width="1.5"/>
+        <rect x="29" y="55" width="12" height="9" rx="3" fill="none" stroke="#2d2d3a" stroke-width="1.5"/>
+        <line x1="23" y1="59" x2="29" y2="59" stroke="#2d2d3a" stroke-width="1.5"/>
+        <!-- eyebrows -->
+        <g id="mini-brows">
+            <path d="M11 54 Q17 50 23 54" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <path d="M29 54 Q35 50 41 54" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- eyes -->
+        <g id="mini-eyes">
+            <circle cx="17" cy="60" r="2.5" fill="#2d1a0e"/>
+            <circle cx="35" cy="60" r="2.5" fill="#2d1a0e"/>
+        </g>
+        <!-- mouth -->
+        <g id="mini-mouth">
+            <path d="M19 68 Q26 73 33 68" stroke="#c47a5a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- blush -->
+        <ellipse id="mini-blush-l" cx="13" cy="66" rx="4" ry="2.5" fill="#ffb0b0" opacity="0"/>
+        <ellipse id="mini-blush-r" cx="39" cy="66" rx="4" ry="2.5" fill="#ffb0b0" opacity="0"/>
+        <!-- thought bubble dots (for thinking expression) -->
+        <g id="mini-thought" opacity="0">
+            <circle cx="48" cy="34" r="2" fill="#aaa"/>
+            <circle cx="53" cy="27" r="3" fill="#aaa"/>
+            <circle cx="60" cy="18" r="4" fill="#aaa"/>
+        </g>
+    </svg>
+    <div id="mini-bubble" aria-live="polite"></div>
+</div>
+
 <nav class="navbar">
     <div class="nav-container">
         <div class="logo">Nitya Patel</div>
@@ -37,36 +83,111 @@
     </div>
 </nav>
 
-<!-- Sidebar -->
 <div class="fixed-sidebar">
     <a href="https://github.com/Nitya-NP" target="_blank"><i class="fa-brands fa-github-alt"></i></a>
     <a href="https://www.linkedin.com/in/nitya-patel-838072301/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
 </div>
 
-<!-- INTRO -->
+<!-- INTRO — big seated character beside text -->
 <section id="Intro">
-    <div class="about_me">
-        <h5 id="hi">Hi! I am</h5>
-        <h2>Nitya Patel</h2>
-
-        <h5>
-            McMaster University Software Engineering student with hands-on experience in software development,
-            automation, and AI integration, specializing in backend systems, API-driven applications, and building
-            real-world software solutions.
-
-            <br><br>
-
-            My experience spans <span style="color: var(--pink);">Java</span>, <span style="color: var(--pink);">Python</span>,
-            <span style="color: var(--pink);">C#</span>, <span style="color: var(--pink);">C</span>,
-            <span style="color: var(--pink);">Git/GitHub</span>, <span style="color: var(--pink);">Linux</span>,
-            as well as <span style="color: var(--pink);">HTML, CSS, JavaScript, React</span>.
-        </h5>
-
-        <div class="intro-meta">
-            <div>
-                I'm currently seeking <strong>co-op or internship</strong> opportunities in software development where
-                I can apply my skills and contribute to impactful projects.
+    <div class="intro-layout">
+        <div class="about_me">
+            <h5 id="hi">Hi! I am</h5>
+            <h2>Nitya Patel</h2>
+            <h5>
+                McMaster University Software Engineering student with hands-on experience in software development,
+                automation, and AI integration, specializing in backend systems, API-driven applications, and building
+                real-world software solutions.
+                <br><br>
+                My experience spans <span style="color: var(--pink);">Java</span>, <span style="color: var(--pink);">Python</span>,
+                <span style="color: var(--pink);">C#</span>, <span style="color: var(--pink);">C</span>,
+                <span style="color: var(--pink);">Git/GitHub</span>, <span style="color: var(--pink);">Linux</span>,
+                as well as <span style="color: var(--pink);">HTML, CSS, JavaScript, React</span>.
+            </h5>
+            <div class="intro-meta">
+                <div>
+                    I'm currently seeking <strong>co-op or internship</strong> opportunities in software development where
+                    I can apply my skills and contribute to impactful projects.
+                </div>
             </div>
+        </div>
+
+        <!-- BIG SEATED CHARACTER -->
+        <div class="char-big" id="char-big" aria-label="Illustrated character of Nitya with a laptop">
+            <svg width="100%" viewBox="0 0 270 400" xmlns="http://www.w3.org/2000/svg" role="img">
+                <title>Nitya character — seated with laptop</title>
+                <g transform="translate(30, 30)">
+                    <!-- shadow -->
+                    <ellipse cx="120" cy="350" rx="70" ry="10" fill="#b0cce0" opacity="0.25"/>
+                    <!-- torso / hoodie -->
+                    <rect x="72" y="170" width="98" height="110" rx="18" fill="#7ec8e3"/>
+                    <rect x="88" y="235" width="66" height="38" rx="10" fill="#5ab5d4"/>
+                    <ellipse cx="121" cy="172" rx="52" ry="18" fill="#5ab5d4"/>
+                    <!-- arms -->
+                    <rect x="38" y="175" width="36" height="85" rx="16" fill="#7ec8e3"/>
+                    <rect x="168" y="175" width="36" height="85" rx="16" fill="#7ec8e3"/>
+                    <!-- hands -->
+                    <ellipse cx="56" cy="265" rx="16" ry="12" fill="#f5c5a3"/>
+                    <ellipse cx="186" cy="265" rx="16" ry="12" fill="#f5c5a3"/>
+                    <!-- laptop -->
+                    <rect x="38" y="260" width="166" height="22" rx="6" fill="#2d2d3a"/>
+                    <rect x="48" y="210" width="146" height="58" rx="6" fill="#1e1e2e"/>
+                    <rect x="56" y="218" width="130" height="42" rx="3" fill="#0f0f1f"/>
+                    <rect x="62" y="224" width="60" height="3" rx="1" fill="#5cc3ff" opacity="0.8"/>
+                    <rect x="62" y="232" width="90" height="3" rx="1" fill="#ff72da" opacity="0.7"/>
+                    <rect x="62" y="240" width="45" height="3" rx="1" fill="#5cc3ff" opacity="0.6"/>
+                    <rect x="62" y="248" width="75" height="3" rx="1" fill="#a0ffb0" opacity="0.6"/>
+                    <!-- neck -->
+                    <rect x="106" y="118" width="30" height="42" rx="10" fill="#f5c5a3"/>
+                    <!-- ears + earrings -->
+                    <ellipse cx="62" cy="100" rx="13" ry="17" fill="#e8a87c"/>
+                    <ellipse cx="180" cy="100" rx="13" ry="17" fill="#e8a87c"/>
+                    <circle cx="62" cy="108" r="4" fill="#1a1a1a"/>
+                    <circle cx="62" cy="108" r="2.5" fill="#ff72da"/>
+                    <circle cx="180" cy="108" r="4" fill="#1a1a1a"/>
+                    <circle cx="180" cy="108" r="2.5" fill="#ff72da"/>
+                    <!-- head -->
+                    <ellipse cx="121" cy="92" rx="62" ry="68" fill="#f5c5a3"/>
+                    <!-- hair back -->
+                    <ellipse cx="121" cy="40" rx="64" ry="46" fill="#1a1a1a"/>
+                    <path d="M58 70 Q38 90 46 122 Q50 138 58 130" fill="#1a1a1a"/>
+                    <path d="M184 70 Q204 90 196 122 Q192 138 184 130" fill="#1a1a1a"/>
+                    <!-- hair front -->
+                    <ellipse cx="121" cy="32" rx="62" ry="34" fill="#1a1a1a"/>
+                    <path d="M60 50 Q75 32 95 40 Q108 32 121 36 Q134 32 147 40 Q167 32 182 50" fill="#1a1a1a"/>
+                    <!-- bun -->
+                    <circle cx="121" cy="2" r="32" fill="#1a1a1a"/>
+                    <circle cx="121" cy="2" r="24" fill="#222233"/>
+                    <ellipse cx="121" cy="28" rx="22" ry="6" fill="#ff72da"/>
+                    <!-- eyebrows -->
+                    <path d="M82 62 Q92 56 104 60" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M138 60 Q150 56 160 62" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <!-- glasses -->
+                    <circle cx="97" cy="84" r="26" fill="none" stroke="#2d2d3a" stroke-width="5"/>
+                    <circle cx="147" cy="84" r="26" fill="none" stroke="#2d2d3a" stroke-width="5"/>
+                    <circle cx="97" cy="84" r="23" fill="#7ec8e3" opacity="0.08"/>
+                    <circle cx="147" cy="84" r="23" fill="#7ec8e3" opacity="0.08"/>
+                    <path d="M122 84 Q124.5 80 127 84" stroke="#2d2d3a" stroke-width="4" fill="none"/>
+                    <line x1="71" y1="76" x2="64" y2="70" stroke="#2d2d3a" stroke-width="4.5" stroke-linecap="round"/>
+                    <line x1="173" y1="76" x2="180" y2="70" stroke="#2d2d3a" stroke-width="4.5" stroke-linecap="round"/>
+                    <!-- eyes -->
+                    <circle cx="97" cy="85" r="18" fill="white"/>
+                    <circle cx="147" cy="85" r="18" fill="white"/>
+                    <circle cx="98" cy="87" r="12" fill="#7B4A2D"/>
+                    <circle cx="148" cy="87" r="12" fill="#7B4A2D"/>
+                    <circle cx="99" cy="88" r="7" fill="#1a0a02"/>
+                    <circle cx="149" cy="88" r="7" fill="#1a0a02"/>
+                    <circle cx="102" cy="81" r="4.5" fill="white" opacity="0.95"/>
+                    <circle cx="152" cy="81" r="4.5" fill="white" opacity="0.95"/>
+                    <!-- nose -->
+                    <path d="M115 110 Q121 117 127 110" stroke="#c4836a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                    <!-- blush -->
+                    <ellipse cx="76" cy="108" rx="14" ry="8" fill="#ffb0b0" opacity="0.4"/>
+                    <ellipse cx="166" cy="108" rx="14" ry="8" fill="#ffb0b0" opacity="0.4"/>
+                    <!-- smile -->
+                    <path d="M98 132 Q121 150 144 132" stroke="#c47a5a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                </g>
+            </svg>
         </div>
     </div>
 </section>
@@ -74,65 +195,57 @@
 <!-- PROJECTS -->
 <section id="Projects" class="section">
     <h1 class="section-title">PROJECTS</h1>
-
     <div class="projects-grid">
-
         <article class="project-card">
             <div class="project-thumb">🤖</div>
             <h3>PRPilot - Code Review Automation System</h3>
             <p>FastAPI webhook system processing GitHub PRs with LLM-based review generation, CI/CD integration, and secure deployment on Render.</p>
             <a href="https://github.com/Nitya-NP/prpilot" target="_blank">View Code</a>
         </article>
-
         <article class="project-card">
             <div class="project-thumb">🧠</div>
             <h3>Catan Strategy Game</h3>
             <p>Java + Python strategy game using OOP, rule-based AI, and structured JSON game-state processing.</p>
             <a href="https://github.com/Nitya-NP/Catan-Strategy-Game" target="_blank">View Code</a>
         </article>
-
         <article class="project-card">
             <div class="project-thumb">🎸</div>
             <h3>ChordHero</h3>
             <p>Accessibility-focused Python app built for visually impaired users with usability testing and iterative design improvements.</p>
             <a href="https://github.com/Nitya-NP/ChordHero" target="_blank">View Code</a>
         </article>
-
         <article class="project-card">
             <div class="project-thumb">❌⭕</div>
             <h3>Tic-Tac-Toe</h3>
             <p>Java OOP game with multiple AI difficulty levels including strategic decision-making bot.</p>
+            <a href="https://github.com/Nitya-NP/Tic-Tac-Toe" target="_blank">View Code</a>
         </article>
-
         <article class="project-card">
             <div class="project-thumb">🧩</div>
             <h3>Mastermind</h3>
             <p>Console-based Java code-breaking game using logical deduction mechanics.</p>
+            <a href="https://github.com/Nitya-NP/Mastermind-Game" target="_blank">View Code</a>
         </article>
-
         <article class="project-card">
             <div class="project-thumb">⚓</div>
             <h3>Battleship</h3>
             <p>Java Battleship game with ship placement, hit tracking, and AI opponent logic.</p>
+            <a href="https://github.com/Nitya-NP/Battleship" target="_blank">View Code</a>
         </article>
-
     </div>
 </section>
 
 <!-- EXPERIENCE -->
 <section id="Experiences" class="section">
     <h1 class="section-title">EXPERIENCE</h1>
-
     <div class="timeline-grid">
-
         <div class="timeline-item">
             <div class="timeline-body">
                 <h3>AI/ML Web Application Developer · VJDS International Inc.</h3>
                 <span class="timeline-date">May 2026 – Present</span>
-                <p>Developing AI-powered web applications using Python, LLM APIs, and full-stack integration in a remote team environment.</p>
+                <p>Developing AI-powered web applications using Python, React.js, LLM APIs, and full-stack integration in a remote team environment.</p>
             </div>
         </div>
-
         <div class="timeline-item">
             <div class="timeline-body">
                 <h3>Operations Coordinator · Google Developer Groups (GDG)</h3>
@@ -140,7 +253,6 @@
                 <p>Coordinating hackathons and technical workshops, managing logistics, participants, and event execution.</p>
             </div>
         </div>
-
         <div class="timeline-item">
             <div class="timeline-body">
                 <h3>Operations Lead Intern · AYD Internet Marketing</h3>
@@ -148,7 +260,6 @@
                 <p>Led operational planning, risk analysis, and cross-team coordination for project execution.</p>
             </div>
         </div>
-
         <div class="timeline-item">
             <div class="timeline-body">
                 <h3>Strategy Lead · Rue Productions</h3>
@@ -156,14 +267,12 @@
                 <p>Analyzed user needs and market trends to support structured strategic decision-making.</p>
             </div>
         </div>
-
     </div>
 </section>
 
-<!-- SKILLS (KEEP TOGGLE EXACT SAME) -->
+<!-- SKILLS -->
 <section id="Skills" class="section">
     <h1 class="section-title">MY SKILLS</h1>
-
     <div class="toggle-container">
         <div class="toggle-switch techskills-active">
             <div class="toggle-slider"></div>
@@ -171,54 +280,42 @@
             <div class="toggle-option" data-target="soft-skills">Soft Skills</div>
         </div>
     </div>
-
-    <!-- TECH SKILLS -->
     <div id="tech-skills" class="skills-section active">
         <div class="skills-grid">
-
             <div class="skill-card">
                 <div class="skill-icon">💻</div>
                 <h4>Programming</h4>
                 <div class="skill-description">Python, Java, JavaScript, C, C#, HTML, CSS</div>
             </div>
-
             <div class="skill-card">
                 <div class="skill-icon">⚙️</div>
                 <h4>Tools & Frameworks</h4>
                 <div class="skill-description">React, FastAPI, Git, GitHub, REST APIs, Linux, Bash</div>
             </div>
-
             <div class="skill-card">
                 <div class="skill-icon">🧠</div>
                 <h4>Software Engineering</h4>
                 <div class="skill-description">DSA, OOP, SDLC, Agile, CI/CD, Testing, Debugging</div>
             </div>
-
         </div>
     </div>
-
-    <!-- SOFT SKILLS -->
     <div id="soft-skills" class="skills-section">
         <div class="skills-grid">
-
             <div class="skill-card">
                 <div class="skill-icon">🤝</div>
                 <h4>Teamwork</h4>
                 <div class="skill-description">Collaboration in team environments and group projects</div>
             </div>
-
             <div class="skill-card">
                 <div class="skill-icon">🔍</div>
                 <h4>Problem Solving</h4>
                 <div class="skill-description">Analytical thinking and structured approach to challenges</div>
             </div>
-
             <div class="skill-card">
                 <div class="skill-icon">💬</div>
                 <h4>Communication</h4>
                 <div class="skill-description">Clear and effective technical communication</div>
             </div>
-
         </div>
     </div>
 </section>
@@ -226,7 +323,6 @@
 <!-- CONTACT -->
 <section id="Contact" class="section">
     <h2 class="section-title">CONTACT ME</h2>
-
     <div class="contact-logos">
         <a href="mailto:paten131@mcmaster.ca"><i class="fas fa-envelope"></i></a>
         <a href="https://github.com/Nitya-NP"><i class="fa-brands fa-github-alt"></i></a>
@@ -234,7 +330,6 @@
     </div>
 </section>
 
-<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script src="code.js"></script>
 

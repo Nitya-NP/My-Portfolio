@@ -634,6 +634,131 @@ a {
 }
 
 
+/* ============================= */
+/* CHARACTER — INTRO LAYOUT      */
+/* ============================= */
 
+.intro-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
 
+.intro-layout .about_me {
+    flex: 1 1 500px;
+}
 
+.char-big {
+    flex: 0 0 270px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    animation: char-float 3.5s ease-in-out infinite;
+}
+
+.char-big svg {
+    width: 100%;
+    max-width: 270px;
+    height: auto;
+}
+
+@keyframes char-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@media (max-width: 900px) {
+    .intro-layout {
+        flex-direction: column-reverse;
+        gap: 20px;
+    }
+
+    .char-big {
+        flex: 0 0 auto;
+        width: 180px;
+    }
+
+    .char-big svg {
+        max-width: 180px;
+    }
+}
+
+/* ============================= */
+/* ROAMING MINI CHARACTER         */
+/* ============================= */
+
+#mini-char {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 102px;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 1.8s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    will-change: transform;
+}
+
+#mini-char.visible {
+    opacity: 1;
+}
+
+/* Gentle idle bob */
+#mini-char.bobbing #mini-svg {
+    animation: mini-bob 2.4s ease-in-out infinite;
+}
+
+@keyframes mini-bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(-2deg); }
+}
+
+#mini-char svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: drop-shadow(0 6px 8px rgba(0,0,0,0.35));
+}
+
+#mini-bubble {
+    position: absolute;
+    top: -10px;
+    left: 100%;
+    margin-left: 6px;
+    white-space: nowrap;
+    background: rgba(17, 17, 36, 0.95);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#mini-bubble.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* When the bubble would run off-screen on the right, flip it left */
+#mini-char.flip-bubble #mini-bubble {
+    left: auto;
+    right: 100%;
+    margin-left: 0;
+    margin-right: 6px;
+}
+
+/* Hide roaming character on small/touch screens */
+@media (max-width: 768px) {
+    #mini-char {
+        display: none;
+    }
+}
