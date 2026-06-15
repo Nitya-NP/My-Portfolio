@@ -9,6 +9,73 @@
     --card: #112240;
 }
 
+/* ============================= */
+/* LIGHT MODE THEME              */
+/* ============================= */
+[data-theme="light"] {
+    --bg: #f4f7fb;
+    --panel: #ffffff;
+    --accent: #2a8fc7;
+    --pink: #e0529e;
+    --muted: #1a1a2a;
+    --card: #ffffff;
+}
+
+[data-theme="light"] body {
+    color: var(--muted);
+}
+
+[data-theme="light"] #particles-js {
+    background: linear-gradient(135deg, #eaf2fb 0%, #f4f7fb 50%, #e6eef8 100%);
+}
+
+[data-theme="light"] .about_me,
+[data-theme="light"] .project-card,
+[data-theme="light"] .timeline-body,
+[data-theme="light"] .skill-card {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(20, 40, 80, 0.06);
+}
+
+[data-theme="light"] .intro-meta {
+    background: rgba(42, 143, 199, 0.08);
+}
+
+[data-theme="light"] .navbar {
+    background: rgba(244, 247, 251, 0.85);
+}
+
+[data-theme="light"] .nav-link:hover {
+    color: #ffffff;
+}
+
+[data-theme="light"] .project-card a {
+    color: #ffffff;
+}
+
+[data-theme="light"] .project-card a:hover {
+    background: var(--pink);
+    color: #ffffff;
+}
+
+[data-theme="light"] .toggle-option {
+    color: var(--muted);
+}
+
+[data-theme="light"] .toggle-switch.techskills-active .toggle-option:nth-child(1),
+[data-theme="light"] .toggle-switch.softskills-active .toggle-option:nth-child(2) {
+    color: #ffffff;
+}
+
+[data-theme="light"] .resume-btn {
+    color: var(--pink) !important;
+}
+
+[data-theme="light"] .nav-toggle .bar {
+    background: var(--muted);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -22,6 +89,7 @@ body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 html {
@@ -65,6 +133,7 @@ a {
     left: 0;
     z-index: -1;
     background: linear-gradient(135deg, #0a0a1a 0%, #050510 50%, #0f0f1f 100%);
+    transition: background 0.4s ease;
 }
 
 /* sidebar Section */
@@ -111,6 +180,7 @@ a {
     border-bottom: 2px solid var(--accent);
     z-index: 1000;
     padding: 0 20px;
+    transition: background 0.4s ease, border-color 0.4s ease;
 }
 
 .nav-container {
@@ -201,6 +271,7 @@ a {
     border-radius: 15px;
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.4s ease, border-color 0.4s ease;
 }
 
 #hi {
@@ -229,6 +300,7 @@ a {
     border-left: 4px solid var(--accent);
     font-size: 15px;
     color: var(--muted);
+    transition: background 0.4s ease;
 }
 
 /* project Section */
@@ -245,7 +317,7 @@ a {
     padding: 20px;
     border-radius: 15px;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease, border-color 0.4s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
 }
@@ -316,6 +388,7 @@ a {
     border-radius: 10px;
     border-left: 4px solid var(--accent);
     backdrop-filter: blur(10px);
+    transition: background 0.4s ease, border-color 0.4s ease;
 }
 
 .timeline-body h3 {
@@ -352,6 +425,7 @@ a {
     width: 500px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border: 2px solid var(--accent);
+    transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 .toggle-option {
@@ -373,7 +447,7 @@ a {
     height: calc(100% - 10px);
     background-color: var(--accent);
     border-radius: 50px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.4s ease;
 }
 
 .toggle-switch.softskills-active .toggle-slider {
@@ -399,7 +473,7 @@ a {
     padding: 12px;
     border-radius: 12px;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, background 0.4s ease, border-color 0.4s ease;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
@@ -688,20 +762,23 @@ a {
 }
 
 /* ============================= */
-/* ROAMING MINI CHARACTER         */
+/* PERCHED MINI CHARACTER         */
+/* Sits on edges of sections,     */
+/* reacts to hover/click only.    */
 /* ============================= */
 
 #mini-char {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 70px;
-    height: 102px;
+    position: absolute;
+    width: 58px;
+    height: 78px;
     pointer-events: none;
-    z-index: 999;
+    z-index: 50;
     opacity: 0;
-    transition: opacity 0.5s ease, transform 1.8s cubic-bezier(0.45, 0.05, 0.55, 0.95);
-    will-change: transform;
+    transition: opacity 0.5s ease, top 1.2s cubic-bezier(0.45, 0.05, 0.55, 0.95),
+                left 1.2s cubic-bezier(0.45, 0.05, 0.55, 0.95),
+                right 1.2s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    cursor: pointer;
+    pointer-events: auto;
 }
 
 #mini-char.visible {
@@ -710,24 +787,45 @@ a {
 
 /* Gentle idle bob */
 #mini-char.bobbing #mini-svg {
-    animation: mini-bob 2.4s ease-in-out infinite;
+    animation: mini-bob 2.6s ease-in-out infinite;
 }
 
 @keyframes mini-bob {
     0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-6px) rotate(-2deg); }
+    50% { transform: translateY(-4px) rotate(-1.5deg); }
+}
+
+/* Dizzy spin (click counter easter egg) */
+#mini-char.dizzy #mini-svg {
+    animation: mini-dizzy 0.6s ease-in-out infinite;
+}
+
+@keyframes mini-dizzy {
+    0%, 100% { transform: rotate(0deg) translateX(0); }
+    25% { transform: rotate(-8deg) translateX(-2px); }
+    75% { transform: rotate(8deg) translateX(2px); }
+}
+
+/* Celebration jump (konami code) */
+#mini-char.celebrate #mini-svg {
+    animation: mini-celebrate 0.5s ease-in-out 3;
+}
+
+@keyframes mini-celebrate {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-18px) scale(1.1); }
 }
 
 #mini-char svg {
     width: 100%;
     height: 100%;
     display: block;
-    filter: drop-shadow(0 6px 8px rgba(0,0,0,0.35));
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.35));
 }
 
 #mini-bubble {
     position: absolute;
-    top: -10px;
+    top: -6px;
     left: 100%;
     margin-left: 6px;
     white-space: nowrap;
@@ -743,12 +841,18 @@ a {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+[data-theme="light"] #mini-bubble {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
 #mini-bubble.show {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* When the bubble would run off-screen on the right, flip it left */
+/* Flip bubble to the left when she's near the right edge */
 #mini-char.flip-bubble #mini-bubble {
     left: auto;
     right: 100%;
@@ -756,9 +860,270 @@ a {
     margin-right: 6px;
 }
 
-/* Hide roaming character on small/touch screens */
+/* Hide perched character on small/touch screens */
 @media (max-width: 768px) {
     #mini-char {
         display: none;
     }
+}
+
+
+/* ============================= */
+/* LOADING SCREEN                 */
+/* ============================= */
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+#loader-svg {
+    animation: loader-float 1.6s ease-in-out infinite;
+}
+
+@keyframes loader-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+#loader-text {
+    color: var(--accent);
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.loader-dots span {
+    animation: loader-dot-blink 1.4s infinite;
+    opacity: 0;
+}
+
+.loader-dots span:nth-child(1) { animation-delay: 0s; }
+.loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes loader-dot-blink {
+    0%, 20% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.loader-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+[data-theme="light"] .loader-bar {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.loader-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--pink));
+    border-radius: 4px;
+    transition: width 1.6s ease;
+}
+
+
+/* ============================= */
+/* THEME TOGGLE BUTTON            */
+/* ============================= */
+
+#theme-toggle {
+    position: fixed;
+    top: 14px;
+    right: 20px;
+    z-index: 1001;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: rgba(17, 17, 36, 0.6);
+    color: var(--accent);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+    transform: rotate(20deg) scale(1.1);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+[data-theme="light"] #theme-toggle {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+    #theme-toggle {
+        top: 14px;
+        right: 70px;
+    }
+}
+
+
+/* ============================= */
+/* RESUME HOVER PREVIEW           */
+/* ============================= */
+
+.resume-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.resume-preview {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 240px;
+    height: 320px;
+    background: var(--panel);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    overflow: hidden;
+    z-index: 1002;
+}
+
+.resume-wrapper:hover .resume-preview {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.resume-preview-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.resume-preview-inner > i,
+.resume-preview-inner > span {
+    display: none;
+}
+
+.resume-embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Fallback shown if embed fails to load (e.g. no resume.pdf yet) */
+.resume-preview-inner.no-pdf {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    color: var(--muted);
+    padding: 20px;
+}
+
+.resume-preview-inner.no-pdf > i {
+    display: block;
+    font-size: 36px;
+    color: var(--accent);
+}
+
+.resume-preview-inner.no-pdf > span {
+    display: block;
+    font-size: 13px;
+}
+
+.resume-preview-inner.no-pdf > embed {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .resume-preview {
+        display: none;
+    }
+}
+
+
+/* ============================= */
+/* KONAMI CODE EASTER EGG          */
+/* ============================= */
+
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 4000;
+}
+
+#konami-msg {
+    position: fixed;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: rgba(17, 17, 36, 0.95);
+    border: 2px solid var(--pink);
+    color: var(--muted);
+    padding: 14px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 4001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+    box-shadow: 0 0 20px rgba(255, 114, 218, 0.4);
+}
+
+#konami-msg.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+[data-theme="light"] #konami-msg {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+#konami-emoji {
+    font-size: 22px;
+    animation: konami-spin 1s ease-in-out infinite;
+}
+
+@keyframes konami-spin {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(15deg) scale(1.2); }
 }

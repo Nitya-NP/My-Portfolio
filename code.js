@@ -64,14 +64,314 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 /* =========================================================
-   ROAMING MINI CHARACTER
-   - Hidden while the user is in the Intro section (big
-     character is shown there instead)
-   - Once scrolled past Intro, she appears and randomly
-     wanders to new spots on screen every few seconds
-   - Hovering over interactive elements (project cards,
-     skill cards, timeline items, nav links, socials)
-     triggers an expression change + speech bubble
+   LOADING SCREEN
+   - Shows the mini character "booting up" the site
+   - Animated progress bar + code lines drawing in
+   - Fades out once load completes (minimum display time
+     so it doesn't just flash)
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', function () {
+    const loadingScreen = document.getElementById('loading-screen');
+    const loaderBarFill = document.querySelector('.loader-bar-fill');
+    const loaderLine1 = document.getElementById('loader-line1');
+    const loaderLine2 = document.getElementById('loader-line2');
+
+    if (!loadingScreen) return;
+
+    const MIN_DISPLAY_MS = 1400;
+    const startTime = Date.now();
+
+    // Animate progress bar and "typing" code lines on the laptop
+    requestAnimationFrame(() => {
+        if (loaderBarFill) loaderBarFill.style.width = '100%';
+        if (loaderLine1) {
+            loaderLine1.style.transition = 'width 0.8s ease 0.2s';
+            loaderLine1.setAttribute('width', '14');
+        }
+        if (loaderLine2) {
+            loaderLine2.style.transition = 'width 0.8s ease 0.6s';
+            loaderLine2.setAttribute('width', '22');
+        }
+    });
+
+    function hideLoader() {
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, MIN_DISPLAY_MS - elapsed);
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            // Remove from DOM after transition for cleanliness
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 700);
+        }, remaining);
+    }
+
+    if (document.readyState === 'complete') {
+        hideLoader();
+    } else {
+        window.addEventListener('load', hideLoader);
+        // Fallback in case 'load' takes too long
+        setTimeout(hideLoader, 4000);
+    }
+});
+
+
+/* =========================================================
+   THEME TOGGLE (dark / light)
+   - Persists choice for the session
+   - Mini character "puts on sunglasses" in light mode
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', function () {
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const miniGlasses = document.getElementById('mini-glasses');
+    const miniSunglasses = document.getElementById('mini-sunglasses');
+    const bigGlasses = document.getElementById('big-glasses');
+    const bigSunglasses = document.getElementById('big-sunglasses');
+    const miniBubble = document.getElementById('mini-bubble');
+    const miniChar = document.getElementById('mini-char');
+
+    if (!themeToggle) return;
+
+    let storedTheme = 'dark';
+    try {
+        storedTheme = sessionStorage.getItem('portfolio-theme') || 'dark';
+    } catch (e) {
+        storedTheme = 'dark';
+    }
+
+    function applyTheme(theme, announce) {
+        if (theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            if (themeIcon) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+            if (miniGlasses) miniGlasses.setAttribute('opacity', '0');
+            if (miniSunglasses) miniSunglasses.setAttribute('opacity', '1');
+            if (bigGlasses) bigGlasses.setAttribute('opacity', '0');
+            if (bigSunglasses) bigSunglasses.setAttribute('opacity', '1');
+            if (announce && miniBubble && miniChar && miniChar.classList.contains('visible')) {
+                miniBubble.textContent = "ooh bright! 😎";
+                miniBubble.classList.add('show');
+                clearTimeout(miniBubble._timeout);
+                miniBubble._timeout = setTimeout(() => miniBubble.classList.remove('show'), 1800);
+            }
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+            if (themeIcon) {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+            if (miniGlasses) miniGlasses.setAttribute('opacity', '1');
+            if (miniSunglasses) miniSunglasses.setAttribute('opacity', '0');
+            if (bigGlasses) bigGlasses.setAttribute('opacity', '1');
+            if (bigSunglasses) bigSunglasses.setAttribute('opacity', '0');
+            if (announce && miniBubble && miniChar && miniChar.classList.contains('visible')) {
+                miniBubble.textContent = "cozy dark mode";
+                miniBubble.classList.add('show');
+                clearTimeout(miniBubble._timeout);
+                miniBubble._timeout = setTimeout(() => miniBubble.classList.remove('show'), 1800);
+            }
+        }
+        try {
+            sessionStorage.setItem('portfolio-theme', theme);
+        } catch (e) { /* ignore */ }
+    }
+
+    applyTheme(storedTheme, false);
+
+    themeToggle.addEventListener('click', () => {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        applyTheme(isLight ? 'dark' : 'light', true);
+    });
+});
+
+
+/* =========================================================
+   RESUME HOVER PREVIEW — fallback handling
+   - If resume.pdf can't be loaded (404), show a friendly
+     placeholder instead of a broken embed
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', function () {
+    const embed = document.querySelector('.resume-embed');
+    const inner = document.querySelector('.resume-preview-inner');
+    const wrapper = document.querySelector('.resume-wrapper');
+    if (!embed || !inner || !wrapper) return;
+
+    function showFallback() {
+        inner.classList.add('no-pdf');
+        inner.innerHTML = `<i class="fas fa-file-pdf"></i><span>Resume preview unavailable — click "Resume" to open the file directly.</span>`;
+    }
+
+    // fetch() over file:// is blocked by browsers (CORS), so don't rely on it.
+    // Instead: try loading the PDF as a blob via XHR when running on http(s),
+    // and for file:// just let the <embed> attempt to render — if the
+    // browser can't show PDFs inline (or the file is missing), swap to fallback
+    // after a short delay if nothing rendered.
+    if (location.protocol === 'file:') {
+        // Can't reliably detect 404 on file://; show preview only on hover
+        // and fall back gracefully if the embed reports an error.
+        embed.addEventListener('error', showFallback);
+
+        // Heuristic: if embed has zero natural size after load attempt, fallback
+        wrapper.addEventListener('mouseenter', () => {
+            setTimeout(() => {
+                if (embed.offsetHeight === 0 || !embed.getSVGDocument) {
+                    // can't fully verify on file://, leave embed as-is;
+                    // most browsers will show their native "can't display" UI
+                    // inside the embed itself, which is acceptable.
+                }
+            }, 300);
+        }, { once: true });
+    } else {
+        fetch('resume.pdf', { method: 'HEAD' })
+            .then(res => {
+                if (!res.ok) throw new Error('not found');
+            })
+            .catch(showFallback);
+    }
+});
+
+
+/* =========================================================
+   KONAMI CODE EASTER EGG
+   ↑ ↑ ↓ ↓ ← → ← → B A  →  confetti + character celebration
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', function () {
+    const konamiMsg = document.getElementById('konami-msg');
+    const canvas = document.getElementById('confetti-canvas');
+    const miniChar = document.getElementById('mini-char');
+    const miniBubble = document.getElementById('mini-bubble');
+
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const KONAMI_SEQUENCE = [
+        'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+        'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+        'b', 'a'
+    ];
+    let progress = 0;
+
+    const confettiColors = ['#5cc3ff', '#ff72da', '#a0ffb0', '#ffd700', '#ffffff'];
+    let confettiPieces = [];
+    let confettiAnimationId = null;
+
+    function spawnConfetti() {
+        confettiPieces = [];
+        const count = 140;
+        for (let i = 0; i < count; i++) {
+            confettiPieces.push({
+                x: Math.random() * canvas.width,
+                y: -20 - Math.random() * canvas.height * 0.5,
+                size: 4 + Math.random() * 6,
+                color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+                speedY: 2 + Math.random() * 3,
+                speedX: (Math.random() - 0.5) * 2,
+                rotation: Math.random() * 360,
+                rotationSpeed: (Math.random() - 0.5) * 10,
+                shape: Math.random() > 0.5 ? 'rect' : 'circle'
+            });
+        }
+        if (!confettiAnimationId) {
+            confettiAnimationId = requestAnimationFrame(animateConfetti);
+        }
+    }
+
+    function animateConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let stillActive = false;
+
+        confettiPieces.forEach(p => {
+            p.y += p.speedY;
+            p.x += p.speedX;
+            p.rotation += p.rotationSpeed;
+
+            if (p.y < canvas.height + 20) stillActive = true;
+
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+            if (p.shape === 'rect') {
+                ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+            } else {
+                ctx.beginPath();
+                ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.restore();
+        });
+
+        if (stillActive) {
+            confettiAnimationId = requestAnimationFrame(animateConfetti);
+        } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confettiAnimationId = null;
+        }
+    }
+
+    function triggerKonami() {
+        spawnConfetti();
+
+        if (konamiMsg) {
+            konamiMsg.classList.add('show');
+            setTimeout(() => konamiMsg.classList.remove('show'), 3500);
+        }
+
+        if (miniChar && miniChar.classList.contains('visible')) {
+            miniChar.classList.remove('bobbing');
+            miniChar.classList.add('celebrate');
+            if (miniBubble) {
+                miniBubble.textContent = "you found it! 🎉";
+                miniBubble.classList.add('show');
+                clearTimeout(miniBubble._timeout);
+                miniBubble._timeout = setTimeout(() => miniBubble.classList.remove('show'), 3000);
+            }
+            setTimeout(() => {
+                miniChar.classList.remove('celebrate');
+                miniChar.classList.add('bobbing');
+            }, 1800);
+        }
+    }
+
+    window.addEventListener('keydown', (e) => {
+        const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+        const expected = KONAMI_SEQUENCE[progress];
+
+        if (key === expected) {
+            progress++;
+            if (progress === KONAMI_SEQUENCE.length) {
+                triggerKonami();
+                progress = 0;
+            }
+        } else {
+            // Allow restarting the sequence if the first key matches
+            progress = (key === KONAMI_SEQUENCE[0]) ? 1 : 0;
+        }
+    });
+});
+
+
+/* =========================================================
+   PERCHED MINI CHARACTER
+   - Hidden while in the Intro section (big character shown there)
+   - Once scrolled past Intro, she appears perched on a
+     section (top corner of Projects, edge of Skills toggle,
+     side of an Experience item, etc.) depending on what's
+     in view
+   - Hovering/clicking interactive elements (project cards,
+     skill cards, timeline items, skills toggle, nav links,
+     socials) triggers an expression change + speech bubble
+   - Clicking the character herself 10 times makes her dizzy
    ========================================================= */
 document.addEventListener('DOMContentLoaded', function () {
     const miniChar = document.getElementById('mini-char');
@@ -81,6 +381,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const miniBlushL = document.getElementById('mini-blush-l');
     const miniBlushR = document.getElementById('mini-blush-r');
     const miniThought = document.getElementById('mini-thought');
+    const miniDizzy = document.getElementById('mini-dizzy');
     const miniBubble = document.getElementById('mini-bubble');
     const introSection = document.getElementById('Intro');
 
@@ -89,62 +390,74 @@ document.addEventListener('DOMContentLoaded', function () {
     // Skip entirely on touch / small screens (CSS also hides it)
     if (window.matchMedia('(max-width: 768px)').matches) return;
 
-    const CHAR_W = 70;
-    const CHAR_H = 102;
-    const MARGIN = 20;
+    if (miniChar.parentElement !== document.body) {
+        document.body.appendChild(miniChar);
+    }
+    document.body.style.position = document.body.style.position || 'relative';
 
-    let roamTimer = null;
-    let isRoaming = false;
     let isHovering = false;
+    let isVisible = false;
     let currentExpression = 'default';
+    let perchTimeout = null;
+    let clickCount = 0;
+    let isDizzy = false;
 
     /* ---------- Expression templates ---------- */
     const expressions = {
         default: {
-            eyes: `<circle cx="17" cy="60" r="2.5" fill="#2d1a0e"/><circle cx="35" cy="60" r="2.5" fill="#2d1a0e"/>`,
-            mouth: `<path d="M19 68 Q26 73 33 68" stroke="#c47a5a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
-            brows: `<path d="M11 54 Q17 50 23 54" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-                    <path d="M29 54 Q35 50 41 54" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>`,
+            eyes: `<circle cx="16.5" cy="35" r="2.5" fill="#2d1a0e"/><circle cx="35.5" cy="35" r="2.5" fill="#2d1a0e"/>`,
+            mouth: `<path d="M18 44 Q26 50 34 44" stroke="#c47a5a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
+            brows: `<path d="M10 29 L23 31" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <path d="M29 31 L42 29" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
             blush: 0,
             thought: 0
         },
         smile: {
-            eyes: `<path d="M12 60 Q17 55 22 60" stroke="#2d1a0e" stroke-width="2" fill="none" stroke-linecap="round"/>
-                   <path d="M30 60 Q35 55 40 60" stroke="#2d1a0e" stroke-width="2" fill="none" stroke-linecap="round"/>`,
-            mouth: `<path d="M17 67 Q26 76 35 67" stroke="#c47a5a" stroke-width="1.5" fill="#f9c99a" opacity="0.5"/>
-                    <path d="M17 67 Q26 76 35 67" stroke="#c47a5a" stroke-width="1.5" fill="none"/>`,
-            brows: `<path d="M11 53 Q17 49 23 52" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-                    <path d="M29 52 Q35 49 41 53" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>`,
+            eyes: `<path d="M11 35 Q16.5 30 22 35" stroke="#2d1a0e" stroke-width="2" fill="none" stroke-linecap="round"/>
+                   <path d="M30 35 Q35.5 30 40 35" stroke="#2d1a0e" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+            mouth: `<path d="M17 43 Q26 52 35 43" stroke="#c47a5a" stroke-width="1.5" fill="#f9c99a" opacity="0.5"/>
+                    <path d="M17 43 Q26 52 35 43" stroke="#c47a5a" stroke-width="1.5" fill="none"/>`,
+            brows: `<path d="M10 28 Q16.5 24 23 27" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <path d="M29 27 Q35.5 24 42 28" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
             blush: 0.6,
             thought: 0
         },
         wow: {
-            eyes: `<circle cx="17" cy="60" r="4" fill="#7B4A2D"/><circle cx="35" cy="60" r="4" fill="#7B4A2D"/>
-                   <circle cx="17" cy="60" r="2.2" fill="#1a0a02"/><circle cx="35" cy="60" r="2.2" fill="#1a0a02"/>
-                   <circle cx="18.5" cy="58.5" r="1.2" fill="white" opacity="0.9"/><circle cx="36.5" cy="58.5" r="1.2" fill="white" opacity="0.9"/>`,
-            mouth: `<ellipse cx="26" cy="69" rx="4" ry="5" fill="none" stroke="#c47a5a" stroke-width="1.5"/>`,
-            brows: `<path d="M10 50 Q17 46 24 50" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-                    <path d="M28 50 Q35 46 42 50" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>`,
+            eyes: `<circle cx="16.5" cy="35" r="4" fill="#7B4A2D"/><circle cx="35.5" cy="35" r="4" fill="#7B4A2D"/>
+                   <circle cx="16.5" cy="35" r="2.2" fill="#1a0a02"/><circle cx="35.5" cy="35" r="2.2" fill="#1a0a02"/>
+                   <circle cx="18" cy="33.5" r="1.2" fill="white" opacity="0.9"/><circle cx="37" cy="33.5" r="1.2" fill="white" opacity="0.9"/>`,
+            mouth: `<ellipse cx="26" cy="45" rx="4" ry="5" fill="none" stroke="#c47a5a" stroke-width="1.5"/>`,
+            brows: `<path d="M9 25 Q16.5 21 24 25" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <path d="M28 25 Q35.5 21 43 25" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
             blush: 0.45,
             thought: 0
         },
         thinking: {
-            eyes: `<circle cx="17" cy="61" r="2.5" fill="#2d1a0e"/><circle cx="35" cy="61" r="2.5" fill="#2d1a0e"/>
-                   <line x1="10" y1="53" x2="22" y2="51" stroke="#f5c5a3" stroke-width="2.5"/>`,
-            mouth: `<path d="M19 68 Q23 65 26 68 Q29 71 33 68" stroke="#c47a5a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
-            brows: `<path d="M9 52 Q17 47 24 51" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-                    <path d="M29 54 Q35 51 41 54" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>`,
+            eyes: `<circle cx="16.5" cy="36" r="2.5" fill="#2d1a0e"/><circle cx="35.5" cy="36" r="2.5" fill="#2d1a0e"/>
+                   <line x1="9" y1="28" x2="21" y2="26" stroke="#f5c5a3" stroke-width="2.5"/>`,
+            mouth: `<path d="M18 44 Q22 41 26 44 Q30 47 34 44" stroke="#c47a5a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
+            brows: `<path d="M8 27 Q16.5 22 24 26" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <path d="M29 30 L42 30" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
             blush: 0.15,
             thought: 1
         },
         wave: {
-            eyes: `<path d="M12 60 Q17 55 22 60" stroke="#2d1a0e" stroke-width="2" fill="none" stroke-linecap="round"/>
-                   <path d="M30 60 Q35 55 40 60" stroke="#2d1a0e" stroke-width="2" fill="none" stroke-linecap="round"/>`,
-            mouth: `<path d="M17 67 Q26 76 35 67" stroke="#c47a5a" stroke-width="1.5" fill="#f9c99a" opacity="0.5"/>
-                    <path d="M17 67 Q26 76 35 67" stroke="#c47a5a" stroke-width="1.5" fill="none"/>`,
-            brows: `<path d="M11 53 Q17 49 23 52" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-                    <path d="M29 52 Q35 49 41 53" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>`,
+            eyes: `<path d="M11 35 Q16.5 30 22 35" stroke="#2d1a0e" stroke-width="2" fill="none" stroke-linecap="round"/>
+                   <path d="M30 35 Q35.5 30 40 35" stroke="#2d1a0e" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+            mouth: `<path d="M17 43 Q26 52 35 43" stroke="#c47a5a" stroke-width="1.5" fill="#f9c99a" opacity="0.5"/>
+                    <path d="M17 43 Q26 52 35 43" stroke="#c47a5a" stroke-width="1.5" fill="none"/>`,
+            brows: `<path d="M10 28 Q16.5 24 23 27" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <path d="M29 27 Q35.5 24 42 28" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
             blush: 0.6,
+            thought: 0
+        },
+        dizzy: {
+            eyes: `<path d="M13 33 L20 38 M20 33 L13 38" stroke="#2d1a0e" stroke-width="1.8" stroke-linecap="round"/>
+                   <path d="M32 33 L39 38 M39 33 L32 38" stroke="#2d1a0e" stroke-width="1.8" stroke-linecap="round"/>`,
+            mouth: `<ellipse cx="26" cy="45" rx="5" ry="3" fill="none" stroke="#c47a5a" stroke-width="1.5"/>`,
+            brows: `<path d="M9 27 Q16.5 23 24 27" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <path d="M28 27 Q35.5 23 43 27" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
+            blush: 0.5,
             thought: 0
         }
     };
@@ -170,151 +483,196 @@ document.addEventListener('DOMContentLoaded', function () {
         }, duration || 1600);
     }
 
-    /* ---------- Position helpers ---------- */
-    function setPosition(x, y) {
-        // Clamp within viewport
-        const maxX = window.innerWidth - CHAR_W - MARGIN;
-        const maxY = window.innerHeight - CHAR_H - MARGIN;
-        const clampedX = Math.max(MARGIN, Math.min(x, maxX));
-        const clampedY = Math.max(MARGIN, Math.min(y, maxY));
+    /* ---------- Perch position helper ---------- */
+    function perchOn(el, opts) {
+        if (!el) return;
+        opts = opts || {};
+        const rect = el.getBoundingClientRect();
+        const scrollY = window.scrollY || window.pageYOffset;
+        const scrollX = window.scrollX || window.pageXOffset;
 
-        miniChar.style.transform = `translate(${clampedX}px, ${clampedY}px)`;
+        let top = rect.top + scrollY + (opts.offsetY || 0);
+        let left;
 
-        // Flip bubble if too close to the right edge
-        if (clampedX > window.innerWidth - 220) {
+        if (opts.side === 'right') {
+            left = rect.right + scrollX + (opts.offsetX || 8);
+            miniChar.style.left = `${left}px`;
+            miniChar.style.right = 'auto';
+            miniChar.classList.remove('flip-bubble');
+        } else if (opts.side === 'left') {
+            left = rect.left + scrollX - 58 - (opts.offsetX || 8);
+            miniChar.style.left = `${left}px`;
+            miniChar.style.right = 'auto';
             miniChar.classList.add('flip-bubble');
         } else {
+            left = rect.right + scrollX - 44;
+            miniChar.style.left = `${left}px`;
+            miniChar.style.right = 'auto';
             miniChar.classList.remove('flip-bubble');
         }
+
+        miniChar.style.top = `${top}px`;
     }
 
-    function randomPosition() {
-        const maxX = window.innerWidth - CHAR_W - MARGIN;
-        const maxY = window.innerHeight - CHAR_H - MARGIN;
-        const x = MARGIN + Math.random() * Math.max(0, maxX - MARGIN);
-        const y = MARGIN + Math.random() * Math.max(0, maxY - MARGIN);
-        return { x, y };
-    }
-
-    /* ---------- Roaming loop ---------- */
-    function roam() {
-        if (isHovering) {
-            // try again shortly if currently engaged with something
-            roamTimer = setTimeout(roam, 1500);
-            return;
-        }
-        const { x, y } = randomPosition();
-        setPosition(x, y);
-
-        // occasional little reaction while wandering
-        if (Math.random() < 0.25) {
-            const moods = ['smile', 'thinking', 'wow'];
-            const mood = moods[Math.floor(Math.random() * moods.length)];
-            setExpression(mood);
-            setTimeout(() => {
-                if (!isHovering) setExpression('default');
-            }, 1400);
-        }
-
-        const nextDelay = 3000 + Math.random() * 3000; // 3-6s
-        roamTimer = setTimeout(roam, nextDelay);
-    }
-
-    function startRoaming() {
-        if (isRoaming) return;
-        isRoaming = true;
+    function showMini() {
+        if (isVisible) return;
+        isVisible = true;
         miniChar.classList.add('visible', 'bobbing');
-        const { x, y } = randomPosition();
-        setPosition(x, y);
-        setExpression('wave');
-        showBubble("hi there! 👋", 1800);
-        setTimeout(() => {
-            if (!isHovering) setExpression('default');
-        }, 2000);
-        roamTimer = setTimeout(roam, 4000);
     }
 
-    function stopRoaming() {
-        if (!isRoaming) return;
-        isRoaming = false;
+    function hideMini() {
+        if (!isVisible) return;
+        isVisible = false;
         miniChar.classList.remove('visible', 'bobbing');
-        clearTimeout(roamTimer);
     }
 
-    /* ---------- Scroll listener: show/hide based on Intro ---------- */
-    let hasGreeted = false;
-    window.addEventListener('scroll', () => {
+    /* ---------- Decide where to perch based on scroll position ---------- */
+    const sections = [
+        { el: document.getElementById('Projects'), anchor: () => document.querySelector('.projects-grid .project-card:first-child'), opts: { side: 'right', offsetX: 10, offsetY: -10 } },
+        { el: document.getElementById('Experiences'), anchor: () => document.querySelector('.timeline-grid .timeline-item:first-child .timeline-body'), opts: { side: 'right', offsetX: 10, offsetY: -10 } },
+        { el: document.getElementById('Skills'), anchor: () => document.querySelector('.toggle-switch'), opts: { side: 'right', offsetX: 14, offsetY: -30 } },
+        { el: document.getElementById('Contact'), anchor: () => document.querySelector('.contact-logos'), opts: { side: 'right', offsetX: 14, offsetY: -20 } }
+    ];
+
+    let currentSection = null;
+
+    function updatePerch() {
         if (!introSection) return;
         const introBottom = introSection.offsetTop + introSection.offsetHeight;
-        const pastIntro = window.scrollY > introBottom - window.innerHeight * 0.5;
+        const scrollY = window.scrollY || window.pageYOffset;
+        const viewportMid = scrollY + window.innerHeight / 2;
 
-        if (pastIntro) {
-            startRoaming();
-            hasGreeted = true;
-        } else {
-            stopRoaming();
+        if (scrollY < introBottom - window.innerHeight * 0.5) {
+            hideMini();
+            currentSection = null;
+            return;
+        }
+
+        let active = null;
+        for (const s of sections) {
+            if (!s.el) continue;
+            const top = s.el.offsetTop;
+            const bottom = top + s.el.offsetHeight;
+            if (viewportMid >= top && viewportMid < bottom) {
+                active = s;
+                break;
+            }
+        }
+
+        if (!active) {
+            active = sections[sections.length - 1];
+        }
+
+        if (active !== currentSection) {
+            currentSection = active;
+            const anchorEl = active.anchor ? active.anchor() : active.el;
+            if (anchorEl) {
+                perchOn(anchorEl, active.opts);
+                showMini();
+                if (!isHovering && !isDizzy) {
+                    setExpression('wave');
+                    showBubble("hi! 👋", 1500);
+                    setTimeout(() => {
+                        if (!isHovering && !isDizzy) setExpression('default');
+                    }, 1600);
+                }
+            }
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        clearTimeout(perchTimeout);
+        perchTimeout = setTimeout(updatePerch, 80);
+    });
+    window.addEventListener('resize', () => {
+        if (currentSection) {
+            const anchorEl = currentSection.anchor ? currentSection.anchor() : currentSection.el;
+            if (anchorEl) perchOn(anchorEl, currentSection.opts);
         }
     });
 
-    /* ---------- Hover reactions ---------- */
-    function attachHover(selector, mood, bubbleText) {
+    /* ---------- Hover / click reactions on page elements ---------- */
+    function attachReaction(selector, mood, bubbleText) {
         document.querySelectorAll(selector).forEach(el => {
             el.addEventListener('mouseenter', () => {
-                if (!isRoaming) return;
+                if (!isVisible || isDizzy) return;
                 isHovering = true;
-                clearTimeout(roamTimer);
                 miniChar.classList.remove('bobbing');
-
-                // Move near the hovered element (offset so it doesn't cover it)
-                const rect = el.getBoundingClientRect();
-                let targetX = rect.right + 16;
-                let targetY = rect.top + rect.height / 2 - CHAR_H / 2;
-
-                // If too close to right edge, place to the left instead
-                if (targetX + CHAR_W > window.innerWidth - MARGIN) {
-                    targetX = rect.left - CHAR_W - 16;
-                }
-                if (targetX < MARGIN) targetX = MARGIN;
-
-                setPosition(targetX, targetY);
                 setExpression(mood);
                 if (bubbleText) showBubble(bubbleText, 2200);
             });
 
             el.addEventListener('mouseleave', () => {
                 isHovering = false;
-                miniChar.classList.add('bobbing');
-                setExpression('default');
-                if (isRoaming) {
-                    clearTimeout(roamTimer);
-                    roamTimer = setTimeout(roam, 1200);
+                if (!isDizzy) {
+                    miniChar.classList.add('bobbing');
+                    setExpression('default');
                 }
+            });
+
+            el.addEventListener('click', () => {
+                if (!isVisible || isDizzy) return;
+                setExpression(mood);
+                if (bubbleText) showBubble(bubbleText, 2000);
+                setTimeout(() => {
+                    if (!isHovering && !isDizzy) setExpression('default');
+                }, 2000);
             });
         });
     }
 
-    attachHover('.project-card', 'wow', "nice project! ✨");
-    attachHover('.skill-card', 'thinking', "hmm, useful!");
-    attachHover('.timeline-body', 'smile', "good times 😊");
-    attachHover('.nav-link', 'smile', null);
-    attachHover('.fixed-sidebar a', 'wow', "let's connect!");
-    attachHover('.contact-logos a', 'wave', "say hi! 👋");
+    attachReaction('.project-card', 'wow', "nice project! ✨");
+    attachReaction('.skill-card', 'thinking', "hmm, useful!");
+    attachReaction('.timeline-body', 'smile', "good times 😊");
+    attachReaction('.toggle-option', 'thinking', "let's switch!");
+    attachReaction('.nav-link', 'smile', null);
+    attachReaction('.fixed-sidebar a', 'wow', "let's connect!");
+    attachReaction('.contact-logos a', 'wave', "say hi! 👋");
+
+    /* ---------- Click counter on the character herself ---------- */
+    const dizzyBubbleLines = [
+        "hey! 😄",
+        "tickles!",
+        "hehe stop~",
+        "okay that's a lot...",
+        "getting dizzy...",
+        "whoaaa 😵"
+    ];
+
+    miniChar.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!isVisible || isDizzy) return;
+
+        clickCount++;
+
+        if (clickCount < dizzyBubbleLines.length) {
+            showBubble(dizzyBubbleLines[clickCount - 1], 1200);
+            setExpression('smile');
+            setTimeout(() => {
+                if (!isHovering && !isDizzy) setExpression('default');
+            }, 1200);
+        }
+
+        if (clickCount >= 10) {
+            isDizzy = true;
+            miniChar.classList.remove('bobbing');
+            miniChar.classList.add('dizzy');
+            setExpression('dizzy');
+            if (miniDizzy) miniDizzy.setAttribute('opacity', '1');
+            showBubble("okay stop that 😅", 2200);
+
+            setTimeout(() => {
+                miniChar.classList.remove('dizzy');
+                miniChar.classList.add('bobbing');
+                if (miniDizzy) miniDizzy.setAttribute('opacity', '0');
+                setExpression('default');
+                clickCount = 0;
+                isDizzy = false;
+            }, 2400);
+        }
+    });
 
     // Initial state
     setExpression('default');
-
-    // In case the page is already scrolled on load (e.g. refresh mid-page)
-    if (window.scrollY > 0) {
-        const introBottom = introSection ? introSection.offsetTop + introSection.offsetHeight : 0;
-        if (window.scrollY > introBottom - window.innerHeight * 0.5) {
-            startRoaming();
-        }
-    }
-
-    // Re-clamp position on resize
-    window.addEventListener('resize', () => {
-        if (!isRoaming) return;
-        const { x, y } = randomPosition();
-        setPosition(x, y);
-    });
+    updatePerch();
 });
