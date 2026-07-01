@@ -12,45 +12,7 @@
 
 <body>
 
-<!-- LOADING SCREEN -->
-<div id="loading-screen">
-    <div class="loader-content">
-        <svg id="loader-svg" viewBox="0 0 52 70" xmlns="http://www.w3.org/2000/svg" width="80" height="108">
-            <!-- laptop -->
-            <rect x="4" y="62" width="44" height="8" rx="2" fill="#2d2d3a"/>
-            <rect x="8" y="50" width="36" height="15" rx="2" fill="#1e1e2e"/>
-            <rect x="10" y="52" width="32" height="11" rx="1" fill="#0f0f1f"/>
-            <rect id="loader-line1" x="12" y="54" width="0" height="2" rx="0.5" fill="#5cc3ff" opacity="0.9"/>
-            <rect id="loader-line2" x="12" y="58" width="0" height="2" rx="0.5" fill="#ff72da" opacity="0.8"/>
-            <!-- body / hoodie -->
-            <rect x="8" y="46" width="36" height="38" rx="8" fill="#7ec8e3"/>
-            <!-- head -->
-            <ellipse cx="26" cy="35" rx="21" ry="23" fill="#f5c5a3"/>
-            <!-- hair -->
-            <ellipse cx="26" cy="16" rx="21" ry="14" fill="#1a1a1a"/>
-            <!-- bun -->
-            <circle cx="26" cy="8" r="10" fill="#1a1a1a"/>
-            <ellipse cx="26" cy="15" rx="9" ry="3.5" fill="#ff72da"/>
-            <!-- eyebrows -->
-            <path d="M10 29 L23 31" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M29 31 L42 29" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <!-- glasses (square) -->
-            <rect x="10" y="30" width="13" height="10" rx="3" fill="none" stroke="#2d2d3a" stroke-width="1.5"/>
-            <rect x="29" y="30" width="13" height="10" rx="3" fill="none" stroke="#2d2d3a" stroke-width="1.5"/>
-            <line x1="23" y1="35" x2="29" y2="35" stroke="#2d2d3a" stroke-width="1.5"/>
-            <!-- eyes -->
-            <circle cx="16.5" cy="35" r="3" fill="#2d1a0e"/>
-            <circle cx="35.5" cy="35" r="3" fill="#2d1a0e"/>
-            <!-- mouth -->
-            <path d="M18 44 Q26 50 34 44" stroke="#c47a5a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <!-- blush -->
-            <ellipse cx="12" cy="42" rx="4" ry="2.5" fill="#ffb0b0" opacity="0.5"/>
-            <ellipse cx="40" cy="42" rx="4" ry="2.5" fill="#ffb0b0" opacity="0.5"/>
-        </svg>
-        <p id="loader-text">booting up portfolio<span class="loader-dots"><span>.</span><span>.</span><span>.</span></span></p>
-        <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-    </div>
-</div>
+
 
 <!-- CONFETTI CANVAS (Konami code easter egg) -->
 <canvas id="confetti-canvas" aria-hidden="true"></canvas>
@@ -68,69 +30,6 @@
     <i class="fas fa-moon" id="theme-icon"></i>
 </button>
 
-<!-- Perched mini character (sits on sections, not cursor) -->
-<div id="mini-char" aria-hidden="true">
-    <svg id="mini-svg" viewBox="0 0 52 70" xmlns="http://www.w3.org/2000/svg" width="52" height="70">
-        <!-- laptop -->
-        <rect x="4" y="62" width="44" height="8" rx="2" fill="#2d2d3a"/>
-        <rect x="8" y="50" width="36" height="15" rx="2" fill="#1e1e2e"/>
-        <rect x="10" y="52" width="32" height="11" rx="1" fill="#0f0f1f"/>
-        <rect x="12" y="54" width="14" height="2" rx="0.5" fill="#5cc3ff" opacity="0.9"/>
-        <rect x="12" y="58" width="22" height="2" rx="0.5" fill="#ff72da" opacity="0.8"/>
-        <!-- body / hoodie -->
-        <rect x="8" y="46" width="36" height="38" rx="8" fill="#7ec8e3"/>
-        <!-- head (slightly bigger for cuteness) -->
-        <ellipse cx="26" cy="35" rx="21" ry="23" fill="#f5c5a3"/>
-        <!-- hair -->
-        <ellipse cx="26" cy="16" rx="21" ry="14" fill="#1a1a1a"/>
-        <!-- bun -->
-        <circle cx="26" cy="8" r="10" fill="#1a1a1a"/>
-        <ellipse cx="26" cy="15" rx="9" ry="3.5" fill="#ff72da"/>
-        <!-- eyebrows -->
-        <g id="mini-brows">
-            <path d="M10 29 L23 31" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M29 31 L42 29" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        </g>
-        <!-- glasses (square, cute) -->
-        <g id="mini-glasses">
-            <rect x="10" y="30" width="13" height="10" rx="3" fill="none" stroke="#2d2d3a" stroke-width="1.5"/>
-            <rect x="29" y="30" width="13" height="10" rx="3" fill="none" stroke="#2d2d3a" stroke-width="1.5"/>
-            <line x1="23" y1="35" x2="29" y2="35" stroke="#2d2d3a" stroke-width="1.5"/>
-        </g>
-        <!-- sunglasses (shown in light mode) -->
-        <g id="mini-sunglasses" opacity="0">
-            <rect x="10" y="30" width="13" height="10" rx="3" fill="#2d2d3a" stroke="#1a1a1a" stroke-width="1"/>
-            <rect x="29" y="30" width="13" height="10" rx="3" fill="#2d2d3a" stroke="#1a1a1a" stroke-width="1"/>
-            <line x1="23" y1="35" x2="29" y2="35" stroke="#1a1a1a" stroke-width="1.5"/>
-            <path d="M12 32 L15 32" stroke="#5cc3ff" stroke-width="1" opacity="0.6"/>
-            <path d="M31 32 L34 32" stroke="#5cc3ff" stroke-width="1" opacity="0.6"/>
-        </g>
-        <!-- eyes -->
-        <g id="mini-eyes">
-            <circle cx="16.5" cy="35" r="2.5" fill="#2d1a0e"/>
-            <circle cx="35.5" cy="35" r="2.5" fill="#2d1a0e"/>
-        </g>
-        <!-- mouth -->
-        <g id="mini-mouth">
-            <path d="M18 44 Q26 50 34 44" stroke="#c47a5a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        </g>
-        <!-- blush -->
-        <ellipse id="mini-blush-l" cx="12" cy="42" rx="4" ry="2.5" fill="#ffb0b0" opacity="0"/>
-        <ellipse id="mini-blush-r" cx="40" cy="42" rx="4" ry="2.5" fill="#ffb0b0" opacity="0"/>
-        <!-- thought bubble dots (thinking expression) -->
-        <g id="mini-thought" opacity="0">
-            <circle cx="46" cy="13" r="2" fill="#aaa"/>
-            <circle cx="51" cy="6" r="3" fill="#aaa"/>
-        </g>
-        <!-- dizzy stars (click counter easter egg) -->
-        <g id="mini-dizzy" opacity="0">
-            <text x="6" y="20" font-size="10" fill="#ffd700">✦</text>
-            <text x="38" y="14" font-size="8" fill="#ffd700">✦</text>
-            <text x="44" y="26" font-size="7" fill="#ffd700">✦</text>
-        </g>
-    </svg>
-    <div id="mini-bubble" aria-live="polite"></div>
-</div>
 
 <nav class="navbar">
     <div class="nav-container">
@@ -191,93 +90,6 @@
             </div>
         </div>
 
-        <!-- BIG SEATED CHARACTER -->
-        <div class="char-big" id="char-big" aria-label="Illustrated character of Nitya with a laptop">
-            <svg width="100%" viewBox="0 0 270 400" xmlns="http://www.w3.org/2000/svg" role="img">
-                <title>Nitya character — seated with laptop</title>
-                <g transform="translate(30, 30)">
-                    <!-- shadow -->
-                    <ellipse cx="120" cy="350" rx="70" ry="10" fill="#b0cce0" opacity="0.25"/>
-                    <!-- torso / hoodie -->
-                    <rect x="72" y="170" width="98" height="110" rx="18" fill="#7ec8e3"/>
-                    <rect x="88" y="235" width="66" height="38" rx="10" fill="#5ab5d4"/>
-                    <ellipse cx="121" cy="172" rx="52" ry="18" fill="#5ab5d4"/>
-                    <!-- arms -->
-                    <rect x="38" y="175" width="36" height="85" rx="16" fill="#7ec8e3"/>
-                    <rect x="168" y="175" width="36" height="85" rx="16" fill="#7ec8e3"/>
-                    <!-- hands -->
-                    <ellipse cx="56" cy="265" rx="16" ry="12" fill="#f5c5a3"/>
-                    <ellipse cx="186" cy="265" rx="16" ry="12" fill="#f5c5a3"/>
-                    <!-- laptop -->
-                    <rect x="38" y="260" width="166" height="22" rx="6" fill="#2d2d3a"/>
-                    <rect x="48" y="210" width="146" height="58" rx="6" fill="#1e1e2e"/>
-                    <rect x="56" y="218" width="130" height="42" rx="3" fill="#0f0f1f"/>
-                    <rect x="62" y="224" width="60" height="3" rx="1" fill="#5cc3ff" opacity="0.8"/>
-                    <rect x="62" y="232" width="90" height="3" rx="1" fill="#ff72da" opacity="0.7"/>
-                    <rect x="62" y="240" width="45" height="3" rx="1" fill="#5cc3ff" opacity="0.6"/>
-                    <rect x="62" y="248" width="75" height="3" rx="1" fill="#a0ffb0" opacity="0.6"/>
-                    <!-- neck -->
-                    <rect x="106" y="118" width="30" height="42" rx="10" fill="#f5c5a3"/>
-                    <!-- ears + earrings -->
-                    <ellipse cx="62" cy="100" rx="13" ry="17" fill="#e8a87c"/>
-                    <ellipse cx="180" cy="100" rx="13" ry="17" fill="#e8a87c"/>
-                    <circle cx="62" cy="108" r="4" fill="#1a1a1a"/>
-                    <circle cx="62" cy="108" r="2.5" fill="#ff72da"/>
-                    <circle cx="180" cy="108" r="4" fill="#1a1a1a"/>
-                    <circle cx="180" cy="108" r="2.5" fill="#ff72da"/>
-                    <!-- head -->
-                    <ellipse cx="121" cy="92" rx="62" ry="68" fill="#f5c5a3"/>
-                    <!-- hair back -->
-                    <ellipse cx="121" cy="40" rx="64" ry="46" fill="#1a1a1a"/>
-                    <path d="M58 70 Q38 90 46 122 Q50 138 58 130" fill="#1a1a1a"/>
-                    <path d="M184 70 Q204 90 196 122 Q192 138 184 130" fill="#1a1a1a"/>
-                    <!-- hair front -->
-                    <ellipse cx="121" cy="32" rx="62" ry="34" fill="#1a1a1a"/>
-                    <path d="M60 50 Q75 32 95 40 Q108 32 121 36 Q134 32 147 40 Q167 32 182 50" fill="#1a1a1a"/>
-                    <!-- bun -->
-                    <circle cx="121" cy="2" r="32" fill="#1a1a1a"/>
-                    <circle cx="121" cy="2" r="24" fill="#222233"/>
-                    <ellipse cx="121" cy="28" rx="22" ry="6" fill="#ff72da"/>
-                    <!-- eyebrows -->
-                    <path d="M76 70 L96 74" stroke="#1a1a1a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-                    <path d="M146 74 L166 70" stroke="#1a1a1a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-                    <!-- glasses (square/rect, matching mini character) -->
-                    <g id="big-glasses">
-                        <rect x="78" y="78" width="34" height="26" rx="6" fill="none" stroke="#2d2d3a" stroke-width="4"/>
-                        <rect x="130" y="78" width="34" height="26" rx="6" fill="none" stroke="#2d2d3a" stroke-width="4"/>
-                        <rect x="78" y="78" width="34" height="26" rx="6" fill="#7ec8e3" opacity="0.08"/>
-                        <rect x="130" y="78" width="34" height="26" rx="6" fill="#7ec8e3" opacity="0.08"/>
-                        <line x1="113" y1="87" x2="129" y2="87" stroke="#2d2d3a" stroke-width="4"/>
-                        <line x1="78" y1="80" x2="59" y2="70" stroke="#2d2d3a" stroke-width="4" stroke-linecap="round"/>
-                        <line x1="167" y1="80" x2="183" y2="70" stroke="#2d2d3a" stroke-width="4" stroke-linecap="round"/>
-                    </g>
-                    <!-- sunglasses (shown in light mode) -->
-                    <g id="big-sunglasses" opacity="0">
-                        <rect x="71" y="74" width="34" height="26" rx="6" fill="#2d2d3a" stroke="#1a1a1a" stroke-width="2"/>
-                        <rect x="137" y="74" width="34" height="26" rx="6" fill="#2d2d3a" stroke="#1a1a1a" stroke-width="2"/>
-                        <line x1="105" y1="87" x2="137" y2="87" stroke="#1a1a1a" stroke-width="4"/>
-                        <line x1="71" y1="80" x2="56" y2="76" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
-                        <line x1="171" y1="80" x2="186" y2="76" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
-                        <path d="M77 81 L85 81" stroke="#5cc3ff" stroke-width="2" opacity="0.6"/>
-                        <path d="M143 81 L151 81" stroke="#5cc3ff" stroke-width="2" opacity="0.6"/>
-                    </g>
-                    <!-- eyes (small, matching mini character) -->
-                    <g id="big-eyes">
-                        <circle cx="97" cy="90" r="6" fill="#2d1a0e"/>
-                        <circle cx="146" cy="90" r="6" fill="#2d1a0e"/>
-                        <circle cx="96" cy="91" r="2" fill="#FFFFFF"/>
-                        <circle cx="147" cy="91" r="2" fill="#FFFFFF"/>
-                    </g>
-                    <!-- nose -->
-                    <path d="M115 110 Q121 117 127 110" stroke="#c4836a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-                    <!-- blush -->
-                    <ellipse cx="76" cy="108" rx="14" ry="8" fill="#ffb0b0" opacity="0.4"/>
-                    <ellipse cx="166" cy="108" rx="14" ry="8" fill="#ffb0b0" opacity="0.4"/>
-                    <!-- smile -->
-                    <path d="M98 132 Q121 150 144 132" stroke="#c47a5a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
-                </g>
-            </svg>
-        </div>
     </div>
 </section>
 
